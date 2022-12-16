@@ -1,17 +1,21 @@
 # Get today's input
 import requests
-import sys
+import argparse 
 
-day = sys.argv[1]
-session = sys.argv[2]
-print(f'session: {session}')
-url = f'https://adventofcode.com/2022/day/{day}/input'
-headers = {'cookie': f'session={session}'}
+parser = argparse.ArgumentParser(description="Getting a day from Advent of Code", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+parser.add_argument("-d", "--day", help="Please input the day as a number")
+parser.add_argument("-s", "--session", help="Please copy your session and pass it here")
+
+args = parser.parse_args()
+
+url = f'https://adventofcode.com/2022/day/{args.day}/input'
+headers = {'cookie': f'session={args.session}'}
 response = requests.get(url , headers=headers)
 
 if response.status_code == 200:
-	print(f'downloaded day {day} in ../{day}.txt')
-	f = open(f'../{day}.txt', "w")
+	print(f'downloaded day {args.day} in ../{args.day}.txt')
+	f = open(f'../{args.day}.txt', "w")
 	f.write(response.text)
 	f.close()
 else:
