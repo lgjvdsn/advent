@@ -20,3 +20,4 @@ with open("01.txt") as d1:
             count = count + 1 if next > curr else count
 
 print(f'part 2 = {count}')
+# test
